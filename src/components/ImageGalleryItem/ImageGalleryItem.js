@@ -1,18 +1,36 @@
-import PropTypes from "prop-types";
-import styles from './ImageGalleryItem.module.css';
+import PropTypes from 'prop-types';
+import { GalleryItem, ImageGallery } from './ImageGalleryItem.styled';
+import defaultImage from '../../images/default.jpeg';
 
-const ImageGalleryItem = ({ src, alt }) => (
-  <li className={styles.ImageGalleryItem}>
-    <img
-      className={styles.image}
-      src={src} alt={alt} />
-  </li>
-);
+function ImageGalleryItem({
+  webformatURL,
+  largeImageURL,
+  tags,
+  handleImageClick,
+}) {
+  return (
+    <GalleryItem>
+      <ImageGallery
+        src={webformatURL}
+        alt={tags}
+        onClick={() => {
+          handleImageClick(largeImageURL, tags);
+        }}
+      />
+    </GalleryItem>
+  );
+}
 
-ImageGalleryItem.propTypes = {
-  src: PropTypes.string,
-  alt: PropTypes.string,
+ImageGalleryItem.defaultProps = {
+  webformatURL: defaultImage,
+  largeImageURL: defaultImage,
 };
 
+ImageGalleryItem.propTypes = {
+  webformatURL: PropTypes.string,
+  largeImageURL: PropTypes.string,
+  tags: PropTypes.string,
+  handleImageClick: PropTypes.func,
+};
 
 export default ImageGalleryItem;
